@@ -12,7 +12,7 @@ namespace WinFormsApp2
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
             //Application.Run(new Form1());
-            Application.Run(new FormStartStage());
+            Application.Run(new FormStartStage2());
 
         }
     }
