@@ -48,6 +48,7 @@
             toolTipClear = new ToolTip(components);
             label8 = new Label();
             labelTypeFormat = new Label();
+            buttonBuffer = new Button();
             SuspendLayout();
             // 
             // checkBox
@@ -74,7 +75,7 @@
             // 
             // buttonClearTerms
             // 
-            buttonClearTerms.Location = new Point(442, 351);
+            buttonClearTerms.Location = new Point(442, 343);
             buttonClearTerms.Name = "buttonClearTerms";
             buttonClearTerms.Size = new Size(123, 50);
             buttonClearTerms.TabIndex = 49;
@@ -84,7 +85,7 @@
             // 
             // buttonRemoveTerms
             // 
-            buttonRemoveTerms.Location = new Point(442, 287);
+            buttonRemoveTerms.Location = new Point(442, 280);
             buttonRemoveTerms.Name = "buttonRemoveTerms";
             buttonRemoveTerms.Size = new Size(123, 50);
             buttonRemoveTerms.TabIndex = 48;
@@ -108,7 +109,7 @@
             listBoxTerms.ItemHeight = 20;
             listBoxTerms.Location = new Point(143, 217);
             listBoxTerms.Name = "listBoxTerms";
-            listBoxTerms.Size = new Size(293, 184);
+            listBoxTerms.Size = new Size(293, 244);
             listBoxTerms.TabIndex = 46;
             // 
             // label1
@@ -138,7 +139,7 @@
             // 
             // buttonNextTerm
             // 
-            buttonNextTerm.Location = new Point(710, 412);
+            buttonNextTerm.Location = new Point(710, 466);
             buttonNextTerm.Name = "buttonNextTerm";
             buttonNextTerm.Size = new Size(108, 29);
             buttonNextTerm.TabIndex = 54;
@@ -177,7 +178,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(12, 424);
+            label5.Location = new Point(12, 478);
             label5.Name = "label5";
             label5.Size = new Size(379, 20);
             label5.TabIndex = 58;
@@ -224,12 +225,23 @@
             labelTypeFormat.TabIndex = 60;
             labelTypeFormat.Text = "labelTypeFormat";
             // 
+            // buttonBuffer
+            // 
+            buttonBuffer.Location = new Point(442, 411);
+            buttonBuffer.Name = "buttonBuffer";
+            buttonBuffer.Size = new Size(123, 50);
+            buttonBuffer.TabIndex = 61;
+            buttonBuffer.Text = "Добавить из буфера";
+            buttonBuffer.UseVisualStyleBackColor = true;
+            buttonBuffer.Click += buttonBuffer_Click;
+            // 
             // FormDialogAddSearchTerms
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(830, 453);
+            ClientSize = new Size(830, 507);
             ControlBox = false;
+            Controls.Add(buttonBuffer);
             Controls.Add(labelTypeFormat);
             Controls.Add(label8);
             Controls.Add(label5);
@@ -272,5 +284,6 @@
         private ToolTip toolTipClear;
         private Label label8;
         private Label labelTypeFormat;
+        private Button buttonBuffer;
     }
 }

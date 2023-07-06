@@ -87,5 +87,17 @@ namespace WinFormsApp2
                 }
             }
         }
+
+        private void buttonBuffer_Click(object sender, EventArgs e)
+        {
+            // Получение содержимого буфера обмена
+            string clipboardText = Clipboard.GetText();
+
+            // Разделение текста на строки
+            string[] lines = clipboardText.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+
+            // Добавление строк в Listbox
+            listBoxTerms.Items.AddRange(lines);
+        }
     }
 }

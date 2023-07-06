@@ -1,4 +1,4 @@
-﻿using Microsoft.Office.Interop.Excel;
+﻿//using Microsoft.Office.Interop.Excel;
 using Microsoft.VisualBasic.ApplicationServices;
 using System;
 using System.Collections.Generic;
@@ -44,6 +44,7 @@ namespace WinFormsApp2.parse
                             MessageBox.Show("С вашего IP было больше двух запросов в секунду", "Предупреждение",
                                 MessageBoxButtons.OK, MessageBoxIcon.Warning,
                                 MessageBoxDefaultButton.Button1, MessageBoxOptions.ServiceNotification);
+                            MessageBox.Show(url);
 
                         }
                     }
@@ -63,6 +64,7 @@ namespace WinFormsApp2.parse
 
         public event Action<int> ProgressUpdated;
         public event Action<int> ProgressSet;
+        public event Action ProgressValue;
         public event System.Action IncrementingLabelFindCount;
 
         public Dictionary<string, string> rowValues = new Dictionary<string, string>();
@@ -93,13 +95,14 @@ namespace WinFormsApp2.parse
 
                 try
                 {
+                    ProgressSet?.Invoke(Keywords.SumTypesSI.Count);
                     var client = new GetResponse(httpClient);
                     Count = 0;
 
                     foreach (string temp in Keywords.SumTypesSI)
                     {
                         string url = "https://fgis.gost.ru/fundmetrology/eapi/vri"
-                            + urlTerms + "&mit_title=" + temp;
+                            + urlTerms + temp;
 
                         using (var jsonDoc = JsonDocument.Parse(await client.Request(url, token)))
                         {
@@ -108,6 +111,7 @@ namespace WinFormsApp2.parse
 
                             Count += count.GetInt32();
                         }
+                        ProgressValue?.Invoke();
                     }
                 }
                 catch(TaskCanceledException) { }
@@ -146,7 +150,7 @@ namespace WinFormsApp2.parse
                     foreach (string temp in Keywords.SumTypesSI)
                     {
                         string url = "https://fgis.gost.ru/fundmetrology/eapi/vri"
-                            + urlTerms + "&mit_title=" + temp;
+                            + urlTerms + temp;
 
                         var client = new GetResponse(httpClient);
                         int endId = 0;

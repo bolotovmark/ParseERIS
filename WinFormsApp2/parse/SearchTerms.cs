@@ -30,14 +30,15 @@ namespace WinFormsApp2.parse
             this.checkedTerms = checkedTerms;
 
             SumTypesSI = new List<string>();
-            Permute(TypesSI, 0, TypesSI.Count - 1);
+            SumTypesSI = TypesSI;
+            //Permute(TypesSI, 0, TypesSI.Count - 1);
         }
 
         //empty for test
         public SearchTerms(List<string> TypesSI) {
 
-            SumTypesSI = new List<string>();
-            Permute(TypesSI, 0, TypesSI.Count - 1);
+            SumTypesSI = TypesSI;
+            //Permute(TypesSI, 0, TypesSI.Count - 1);
         }
         
         public bool CheckRow(ref Dictionary<string, string> row, bool etaMI)
