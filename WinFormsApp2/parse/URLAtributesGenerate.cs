@@ -30,6 +30,10 @@ namespace WinFormsApp2.parse
                 {
                     term.Shake();
                 }
+                else
+                {
+                    term.Update();
+                }
             }
 
             listURLAtributes.Clear();
@@ -82,21 +86,22 @@ namespace WinFormsApp2.parse
             this.words = words;
         }
 
+        public void Update()
+        {
+            var outputList = new List<string>();
+            foreach (string word in words)
+            {
+                outputList.Add($"*{word}*");
+            }
+            this.words = outputList;
+        }
+
         public void Shake()
         {
             List<string> tempList = new List<string>(words);
 
-            //foreach (var word in tempList)
-            //{
-            //    MessageBox.Show(word);
-            //}
             words.Clear();
             Permute(tempList, 0, tempList.Count - 1, tag);
-
-            //foreach (var word in words)
-            //{
-            //    MessageBox.Show(word);
-            //}
         }
 
         public void Permute(List<string> a, int i, int n, string tag)

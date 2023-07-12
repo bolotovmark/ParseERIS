@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             TreeNode treeNode1 = new TreeNode("Наименование организациии поверителя");
             TreeNode treeNode2 = new TreeNode("Регистрационный номер типа СИ");
             TreeNode treeNode3 = new TreeNode("Наименование типа СИ");
@@ -60,6 +61,13 @@
             dateTimePickerTerm = new DateTimePicker();
             labelDatePicker = new Label();
             label4 = new Label();
+            buttonCount = new Button();
+            label5 = new Label();
+            progressBarCount = new ProgressBar();
+            labelCount = new Label();
+            label9 = new Label();
+            toolTip1 = new ToolTip(components);
+            toolTip2 = new ToolTip(components);
             SuspendLayout();
             // 
             // treeViewTermsURL
@@ -163,7 +171,7 @@
             // 
             // buttonNextStage
             // 
-            buttonNextStage.Location = new Point(378, 560);
+            buttonNextStage.Location = new Point(934, 638);
             buttonNextStage.Name = "buttonNextStage";
             buttonNextStage.Size = new Size(136, 29);
             buttonNextStage.TabIndex = 76;
@@ -204,6 +212,7 @@
             textBoxTerms.Location = new Point(581, 321);
             textBoxTerms.Multiline = true;
             textBoxTerms.Name = "textBoxTerms";
+            textBoxTerms.ScrollBars = ScrollBars.Vertical;
             textBoxTerms.Size = new Size(478, 238);
             textBoxTerms.TabIndex = 89;
             textBoxTerms.TextChanged += textBoxTerms_TextChanged;
@@ -310,11 +319,79 @@
             label4.Size = new Size(0, 20);
             label4.TabIndex = 95;
             // 
+            // buttonCount
+            // 
+            buttonCount.Location = new Point(12, 565);
+            buttonCount.Name = "buttonCount";
+            buttonCount.Size = new Size(205, 29);
+            buttonCount.TabIndex = 96;
+            buttonCount.Text = "Рассчитать кол-во записей";
+            buttonCount.UseVisualStyleBackColor = true;
+            buttonCount.Click += buttonCount_Click;
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Location = new Point(12, 610);
+            label5.Name = "label5";
+            label5.Size = new Size(154, 20);
+            label5.TabIndex = 97;
+            label5.Text = "Количество записей:";
+            // 
+            // progressBarCount
+            // 
+            progressBarCount.Location = new Point(234, 565);
+            progressBarCount.Name = "progressBarCount";
+            progressBarCount.Size = new Size(153, 29);
+            progressBarCount.TabIndex = 98;
+            // 
+            // labelCount
+            // 
+            labelCount.AutoSize = true;
+            labelCount.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            labelCount.Location = new Point(172, 610);
+            labelCount.Name = "labelCount";
+            labelCount.Size = new Size(84, 20);
+            labelCount.TabIndex = 99;
+            labelCount.Text = "labelCount";
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Location = new Point(12, 650);
+            label9.Name = "label9";
+            label9.Size = new Size(491, 20);
+            label9.TabIndex = 100;
+            label9.Text = "ℹ️ Для получение подсказки наведитесь на интерактивный элемент\r\n";
+            label9.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // toolTip1
+            // 
+            toolTip1.AutoPopDelay = 5000;
+            toolTip1.InitialDelay = 500;
+            toolTip1.ReshowDelay = 0;
+            toolTip1.ToolTipIcon = ToolTipIcon.Info;
+            toolTip1.ToolTipTitle = "Подсказка";
+            toolTip1.UseAnimation = false;
+            toolTip1.UseFading = false;
+            // 
+            // toolTip2
+            // 
+            toolTip2.ToolTipIcon = ToolTipIcon.Warning;
+            toolTip2.ToolTipTitle = "Предупреждение";
+            toolTip2.UseAnimation = false;
+            toolTip2.UseFading = false;
+            // 
             // FormStartStage2
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1082, 606);
+            ClientSize = new Size(1082, 679);
+            Controls.Add(label9);
+            Controls.Add(labelCount);
+            Controls.Add(progressBarCount);
+            Controls.Add(label5);
+            Controls.Add(buttonCount);
             Controls.Add(label4);
             Controls.Add(labelDatePicker);
             Controls.Add(dateTimePickerTerm);
@@ -367,5 +444,12 @@
         private DateTimePicker dateTimePickerTerm;
         private Label labelDatePicker;
         private Label label4;
+        private Button buttonCount;
+        private Label label5;
+        private ProgressBar progressBarCount;
+        private Label labelCount;
+        private Label label9;
+        private ToolTip toolTip1;
+        private ToolTip toolTip2;
     }
 }

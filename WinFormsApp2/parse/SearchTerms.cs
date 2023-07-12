@@ -9,76 +9,81 @@ using System.Xml;
 
 namespace WinFormsApp2.parse
 {
-    public class Keyword
-    {
-        public List<string> words = new List<string>();
-        public string tag { get; set; }
-        public bool mandatory { get; set; }
-    }
-
     public class SearchTerms
     {
-        public List<string> SumTypesSI;
-
-        public Dictionary<KeyTag, Keyword> checkedTerms = new Dictionary<KeyTag, Keyword>();
+        public Dictionary<KeyParent, Keyword> checkedTerms = new Dictionary<KeyParent, Keyword>();
 
         public bool resultOutput;
 
         //work for parse
-        public SearchTerms(Dictionary<KeyTag, Keyword> checkedTerms, List<string> TypesSI)
+        public SearchTerms(Dictionary<KeyParent, Keyword> checkedTerms)
         {
             this.checkedTerms = checkedTerms;
-
-            SumTypesSI = new List<string>();
-            SumTypesSI = TypesSI;
-            //Permute(TypesSI, 0, TypesSI.Count - 1);
         }
 
-        //empty for test
-        public SearchTerms(List<string> TypesSI) {
-
-            SumTypesSI = TypesSI;
-            //Permute(TypesSI, 0, TypesSI.Count - 1);
-        }
-        
         public bool CheckRow(ref Dictionary<string, string> row, bool etaMI)
         {
             bool output = true;
-            foreach(var dictKeyword in checkedTerms)
+            //foreach(var temp in row)
+            //{
+            //    MessageBox.Show(temp.Key);
+            //}
+            foreach (var dictKeyword in checkedTerms)
             {
-                
-                if(row.ContainsKey(dictKeyword.Key.Key))
+                if (row.ContainsKey(dictKeyword.Key.key))
                 {
-                    var rowValue = row[dictKeyword.Key.Key];
+                    
+                    var rowValue = row[dictKeyword.Key.key];
                     var keywordValue = dictKeyword.Value;
 
-                    if(keywordValue.tag == "etaMI" || keywordValue.tag == "singleMI")
+                    if (keywordValue.tag == "etaMI" || keywordValue.tag == "singleMI")
                     {
-                        if(etaMI && keywordValue.tag == "etaMI")
+                        if (etaMI && keywordValue.tag == "etaMI")
                         {
                             if (keywordValue.words.Count > 0)
                             {
-                                output = keywordValue.words.Any(str => rowValue.ToLower().Contains(str));
+                                if (keywordValue.formatQuery)
+                                {
+                                    output = keywordValue.words.All(str => rowValue.ToLower().Contains(str));
+                                }
+                                else
+                                {
+                                    output = keywordValue.words.Any(str => rowValue.ToLower().Contains(str));
+                                }
                             }
                         }
-                        if(!etaMI && keywordValue.tag == "singleMI")
+                        if (!etaMI && keywordValue.tag == "singleMI")
                         {
                             if (keywordValue.words.Count > 0)
                             {
-                                output = keywordValue.words.Any(str => rowValue.ToLower().Contains(str));
+                                if (keywordValue.formatQuery)
+                                {
+                                    output = keywordValue.words.All(str => rowValue.ToLower().Contains(str));
+                                }
+                                else
+                                {
+                                    output = keywordValue.words.Any(str => rowValue.ToLower().Contains(str));
+                                }
                             }
                         }
-
                     }
                     if (keywordValue.words.Count > 0)
                     {
-                        output = keywordValue.words.Any(str => rowValue.ToLower().Contains(str));
+                        if (keywordValue.formatQuery)
+                        {
+                            output = keywordValue.words.All(str => rowValue.ToLower().Contains(str));
+                        }
+                        else
+                        {
+                            output = keywordValue.words.Any(str => rowValue.ToLower().Contains(str));
+                        }
                     }
                 }
                 else
                 {
                     if (dictKeyword.Value.mandatory)
                     {
+                        
                         return false;
                     }
                 }
@@ -90,38 +95,35 @@ namespace WinFormsApp2.parse
             }
             return output;
         }
+    }
 
-        private void Permute(List<string> a, int i, int n)
+    public class Keyword : ICloneable
+    {
+        public string title { get; set; }
+        public string name { get; set; }
+        public string tag { get; set; }
+        public bool mandatory { get; set; }
+        public bool formatQuery { get; set; }//true - И //fasle - ИЛИ
+        public List<string> words { get; set; }
+
+        public Keyword(string title, string name, string tag)
         {
-            int j;
-
-            if (i == n)
-            {
-                string outValue = "";
-                foreach (string temp in a)
-                {
-
-                    outValue += "*" + temp;
-                }
-                outValue += "*";
-                SumTypesSI.Add(outValue);
-            }
-            else
-            {
-                string temp;
-                for (j = i; j <= n; j++)
-                {
-                    temp = a[i];
-                    a[i] = a[j];
-                    a[j] = temp;
-
-                    Permute(a, i + 1, n);
-
-                    temp = a[i];
-                    a[i] = a[j];
-                    a[j] = temp;
-                }
-            }
+            this.title = title;
+            this.name = name;
+            this.tag = tag;
+            words = new List<string>();
         }
+
+        private Keyword(string title, string name, string tag, bool mandatory, bool formatQuery, List<string> words)
+        {
+            this.title = title;
+            this.name = name;
+            this.tag = tag;
+            this.mandatory = mandatory;
+            this.formatQuery = formatQuery;
+            this.words = words;
+        }
+
+        public object Clone() => new Keyword(title, name, tag, mandatory, formatQuery, new List<string>(words));
     }
 }

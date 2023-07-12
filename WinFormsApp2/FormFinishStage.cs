@@ -24,7 +24,7 @@ namespace WinFormsApp2
             this.Eapi = Eapi;
 
             buttonStop.Enabled = false;
-            buttonStop.Text = "Стоп";
+            buttonStop.Text = "Пауза";
             labelCount.Text = "";
             labelFindCount.Text = "0";
             buttonQuit.Hide();
@@ -74,7 +74,7 @@ namespace WinFormsApp2
             {
                 Eapi.stopCheck = false;
                 await Eapi.Hide(!true);
-                buttonStop.Text = "Стоп";
+                buttonStop.Text = "Пауза";
             }
 
         }

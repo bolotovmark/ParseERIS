@@ -20,73 +20,37 @@ namespace WinFormsApp2.parse
 {
     public class eapi
     {
-        class GetResponse
-        {
-            private HttpClient httpClient;
-
-            public GetResponse(HttpClient httpClient)
-            {
-                this.httpClient = httpClient;
-            }
-
-            public async Task <Stream> Request(string url, CancellationTokenSource token)
-            {
-                Stream stream = null;
-                try
-                {
-                    HttpResponseMessage response;
-                    do
-                    {
-                        System.Threading.Thread.Sleep(500);
-                        response = await httpClient.GetAsync(url, token.Token);
-                        if (!response.IsSuccessStatusCode)
-                        {
-                            MessageBox.Show("С вашего IP было больше двух запросов в секунду", "Предупреждение",
-                                MessageBoxButtons.OK, MessageBoxIcon.Warning,
-                                MessageBoxDefaultButton.Button1, MessageBoxOptions.ServiceNotification);
-                            MessageBox.Show(url);
-
-                        }
-                    }
-                    while (!response.IsSuccessStatusCode);
-
-                    response.EnsureSuccessStatusCode();
-                    stream = await response.Content.ReadAsStreamAsync();
-                }
-                catch (TaskCanceledException) {
-                    
-                }
-                
-
-                return stream;
-            }
-        }
-
         public event Action<int> ProgressUpdated;
         public event Action<int> ProgressSet;
         public event Action ProgressValue;
-        public event System.Action IncrementingLabelFindCount;
+        public event Action IncrementingLabelFindCount;
+        public event Action<int> GetCount;
+
+        public URLAtributesGenerate urls { get; set; }
+        public SearchTerms Keywords { get; set; }
+
 
         public Dictionary<string, string> rowValues = new Dictionary<string, string>();
         public int Count { get; set; }
-        string urlTerms { get; set; }
-        public SearchTerms Keywords { get; set; }
+        string dateTerms { get; set; }
         public bool etaMI { get; set; }
         public bool stopCheck = false;
 
         public HttpClient httpClient;
         public ExcelClass xlApp;
 
-        public eapi(string urlTerms, SearchTerms keywords)
+        public eapi(string dateTerms, URLAtributesGenerate urls, SearchTerms keywords)
         {
             httpClient = new HttpClient();
-            this.urlTerms = urlTerms;
+            this.dateTerms = dateTerms;
+            this.urls = urls;
             this.Keywords = keywords;
         }
 
-        public eapi(string urlTerms) {
+        public eapi(string dateTerms, URLAtributesGenerate urls) {
             httpClient = new HttpClient();
-            this.urlTerms = urlTerms;
+            this.dateTerms = dateTerms;
+            this.urls = urls;
         }
 
         public async Task CheckCount(CancellationTokenSource token)
@@ -95,14 +59,14 @@ namespace WinFormsApp2.parse
 
                 try
                 {
-                    ProgressSet?.Invoke(Keywords.SumTypesSI.Count);
+                    ProgressSet?.Invoke(urls.listURLAtributes.Count);
                     var client = new GetResponse(httpClient);
                     Count = 0;
 
-                    foreach (string temp in Keywords.SumTypesSI)
+                    foreach (string temp in urls.listURLAtributes)
                     {
                         string url = "https://fgis.gost.ru/fundmetrology/eapi/vri"
-                            + urlTerms + temp;
+                            + dateTerms + temp;
 
                         using (var jsonDoc = JsonDocument.Parse(await client.Request(url, token)))
                         {
@@ -113,6 +77,8 @@ namespace WinFormsApp2.parse
                         }
                         ProgressValue?.Invoke();
                     }
+                    GetCount?.Invoke(Count);
+
                 }
                 catch(TaskCanceledException) { }
                 
@@ -147,10 +113,10 @@ namespace WinFormsApp2.parse
 
                     await Hide(!true);
 
-                    foreach (string temp in Keywords.SumTypesSI)
+                    foreach (string temp in urls.listURLAtributes)
                     {
                         string url = "https://fgis.gost.ru/fundmetrology/eapi/vri"
-                            + urlTerms + temp;
+                            + dateTerms + temp;
 
                         var client = new GetResponse(httpClient);
                         int endId = 0;
@@ -253,6 +219,49 @@ namespace WinFormsApp2.parse
             await Task.Run(() => {
                 xlApp?.Hide(tick);
             });
+        }
+
+        class GetResponse
+        {
+            private HttpClient httpClient;
+
+            public GetResponse(HttpClient httpClient)
+            {
+                this.httpClient = httpClient;
+            }
+
+            public async Task<Stream> Request(string url, CancellationTokenSource token)
+            {
+                Stream stream = null;
+                try
+                {
+                    HttpResponseMessage response;
+                    do
+                    {
+                        System.Threading.Thread.Sleep(500);
+                        response = await httpClient.GetAsync(url, token.Token);
+                       
+                        if (!response.IsSuccessStatusCode)
+                        {
+                            MessageBox.Show("С вашего IP было больше двух запросов в секунду", "Предупреждение",
+                                MessageBoxButtons.OK, MessageBoxIcon.Warning,
+                                MessageBoxDefaultButton.Button1, MessageBoxOptions.ServiceNotification);
+                            MessageBox.Show(url);
+
+                        }
+                    }
+                    while (!response.IsSuccessStatusCode);
+
+                    response.EnsureSuccessStatusCode();
+                    stream = await response.Content.ReadAsStreamAsync();
+                }
+                catch (TaskCanceledException)
+                {
+
+                }
+
+                return stream;
+            }
         }
     }
 }
