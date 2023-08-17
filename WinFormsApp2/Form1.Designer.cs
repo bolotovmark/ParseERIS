@@ -66,8 +66,17 @@
             TreeNode treeNode35 = new TreeNode("Отдельные автономные блоки из состава СИ, прошедшие поверку");
             TreeNode treeNode36 = new TreeNode("Прочие сведения");
             TreeNode treeNode37 = new TreeNode("Дополнительные сведения", new TreeNode[] { treeNode29, treeNode30, treeNode31, treeNode32, treeNode33, treeNode34, treeNode35, treeNode36 });
-            TreeNode treeNode38 = new TreeNode("Статус записи");
-            TreeNode treeNode39 = new TreeNode("Сведения о публикации", new TreeNode[] { treeNode38 });
+            TreeNode treeNode38 = new TreeNode("Государственные первичне эталоны");
+            TreeNode treeNode39 = new TreeNode("Узел2");
+            TreeNode treeNode40 = new TreeNode("Узел3");
+            TreeNode treeNode41 = new TreeNode("Узел4");
+            TreeNode treeNode42 = new TreeNode("Узел5");
+            TreeNode treeNode43 = new TreeNode("Узел6");
+            TreeNode treeNode44 = new TreeNode("Узел7");
+            TreeNode treeNode45 = new TreeNode("Средства поверки", new TreeNode[] { treeNode38, treeNode39, treeNode40, treeNode41, treeNode42, treeNode43, treeNode44 });
+            TreeNode treeNode46 = new TreeNode("Статус записи");
+            TreeNode treeNode47 = new TreeNode("Сведения о публикации", new TreeNode[] { treeNode46 });
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             openFileDialog1 = new OpenFileDialog();
             treeView1 = new TreeView();
             buttonBackStage = new Button();
@@ -90,6 +99,9 @@
             textBoxTerms = new TextBox();
             labelSave = new Label();
             toolTip1 = new ToolTip(components);
+            label9 = new Label();
+            checkBoxFalse = new CheckBox();
+            checkBoxTrue = new CheckBox();
             SuspendLayout();
             // 
             // openFileDialog1
@@ -208,12 +220,35 @@
             treeNode36.Text = "Прочие сведения";
             treeNode37.Name = "info";
             treeNode37.Text = "Дополнительные сведения";
-            treeNode38.Name = "status";
+            treeNode38.Name = "Узел1";
             treeNode38.Tag = "string";
-            treeNode38.Text = "Статус записи";
-            treeNode39.Name = "publication";
-            treeNode39.Text = "Сведения о публикации";
-            treeView1.Nodes.AddRange(new TreeNode[] { treeNode8, treeNode19, treeNode28, treeNode37, treeNode39 });
+            treeNode38.Text = "Государственные первичне эталоны";
+            treeNode39.Name = "Узел2";
+            treeNode39.Tag = "string";
+            treeNode39.Text = "Узел2";
+            treeNode40.Name = "Узел3";
+            treeNode40.Tag = "string";
+            treeNode40.Text = "Узел3";
+            treeNode41.Name = "Узел4";
+            treeNode41.Tag = "string";
+            treeNode41.Text = "Узел4";
+            treeNode42.Name = "Узел5";
+            treeNode42.Tag = "string";
+            treeNode42.Text = "Узел5";
+            treeNode43.Name = "Узел6";
+            treeNode43.Tag = "string";
+            treeNode43.Text = "Узел6";
+            treeNode44.Name = "Узел7";
+            treeNode44.Tag = "string";
+            treeNode44.Text = "Узел7";
+            treeNode45.Name = "means";
+            treeNode45.Text = "Средства поверки";
+            treeNode46.Name = "status";
+            treeNode46.Tag = "string";
+            treeNode46.Text = "Статус записи";
+            treeNode47.Name = "publication";
+            treeNode47.Text = "Сведения о публикации";
+            treeView1.Nodes.AddRange(new TreeNode[] { treeNode8, treeNode19, treeNode28, treeNode37, treeNode45, treeNode47 });
             treeView1.Size = new Size(617, 726);
             treeView1.TabIndex = 54;
             treeView1.AfterCheck += treeView1_AfterCheck;
@@ -221,7 +256,7 @@
             // 
             // buttonBackStage
             // 
-            buttonBackStage.Location = new Point(12, 799);
+            buttonBackStage.Location = new Point(12, 819);
             buttonBackStage.Name = "buttonBackStage";
             buttonBackStage.Size = new Size(94, 29);
             buttonBackStage.TabIndex = 56;
@@ -241,11 +276,11 @@
             // 
             // buttonNextStage
             // 
-            buttonNextStage.Location = new Point(524, 799);
+            buttonNextStage.Location = new Point(1076, 819);
             buttonNextStage.Name = "buttonNextStage";
-            buttonNextStage.Size = new Size(105, 29);
+            buttonNextStage.Size = new Size(132, 29);
             buttonNextStage.TabIndex = 58;
-            buttonNextStage.Text = "Продолжить";
+            buttonNextStage.Text = "Запустить поиск";
             buttonNextStage.UseVisualStyleBackColor = true;
             buttonNextStage.Click += buttonNextStage_Click;
             // 
@@ -289,7 +324,7 @@
             // 
             // buttonSave
             // 
-            buttonSave.Location = new Point(1096, 794);
+            buttonSave.Location = new Point(1091, 755);
             buttonSave.Name = "buttonSave";
             buttonSave.Size = new Size(108, 29);
             buttonSave.TabIndex = 70;
@@ -318,12 +353,11 @@
             // checkBoxMandatory
             // 
             checkBoxMandatory.AutoSize = true;
-            checkBoxMandatory.CheckAlign = ContentAlignment.MiddleRight;
-            checkBoxMandatory.Location = new Point(673, 221);
+            checkBoxMandatory.Location = new Point(678, 314);
             checkBoxMandatory.Name = "checkBoxMandatory";
-            checkBoxMandatory.Size = new Size(188, 24);
+            checkBoxMandatory.Size = new Size(185, 24);
             checkBoxMandatory.TabIndex = 67;
-            checkBoxMandatory.Text = "Наличие обязательно:";
+            checkBoxMandatory.Text = "Наличие обязательно";
             checkBoxMandatory.UseVisualStyleBackColor = true;
             checkBoxMandatory.CheckedChanged += checkBoxMandatory_CheckedChanged;
             // 
@@ -341,7 +375,7 @@
             // labelDatePicker
             // 
             labelDatePicker.AutoSize = true;
-            labelDatePicker.Location = new Point(673, 266);
+            labelDatePicker.Location = new Point(673, 230);
             labelDatePicker.Name = "labelDatePicker";
             labelDatePicker.Size = new Size(96, 20);
             labelDatePicker.TabIndex = 99;
@@ -351,7 +385,7 @@
             // 
             dateTimePickerTerm.CustomFormat = "dd-MM-yyyy";
             dateTimePickerTerm.Format = DateTimePickerFormat.Custom;
-            dateTimePickerTerm.Location = new Point(788, 261);
+            dateTimePickerTerm.Location = new Point(788, 225);
             dateTimePickerTerm.Name = "dateTimePickerTerm";
             dateTimePickerTerm.Size = new Size(161, 27);
             dateTimePickerTerm.TabIndex = 98;
@@ -360,7 +394,7 @@
             // checkBoxTerm
             // 
             checkBoxTerm.AutoSize = true;
-            checkBoxTerm.Location = new Point(678, 309);
+            checkBoxTerm.Location = new Point(932, 132);
             checkBoxTerm.Name = "checkBoxTerm";
             checkBoxTerm.RightToLeft = RightToLeft.No;
             checkBoxTerm.Size = new Size(238, 24);
@@ -397,7 +431,7 @@
             textBoxTerms.Multiline = true;
             textBoxTerms.Name = "textBoxTerms";
             textBoxTerms.ScrollBars = ScrollBars.Vertical;
-            textBoxTerms.Size = new Size(526, 367);
+            textBoxTerms.Size = new Size(526, 332);
             textBoxTerms.TabIndex = 100;
             textBoxTerms.TextChanged += textBoxTerms_TextChanged;
             // 
@@ -406,7 +440,7 @@
             labelSave.AutoSize = true;
             labelSave.BackColor = Color.IndianRed;
             labelSave.ForeColor = SystemColors.ControlText;
-            labelSave.Location = new Point(850, 798);
+            labelSave.Location = new Point(845, 759);
             labelSave.Name = "labelSave";
             labelSave.Size = new Size(240, 20);
             labelSave.TabIndex = 101;
@@ -419,11 +453,46 @@
             toolTip1.UseAnimation = false;
             toolTip1.UseFading = false;
             // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Location = new Point(12, 862);
+            label9.Name = "label9";
+            label9.Size = new Size(491, 20);
+            label9.TabIndex = 102;
+            label9.Text = "ℹ️ Для получение подсказки наведитесь на интерактивный элемент\r\n";
+            label9.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // checkBoxFalse
+            // 
+            checkBoxFalse.AutoSize = true;
+            checkBoxFalse.Location = new Point(870, 274);
+            checkBoxFalse.Name = "checkBoxFalse";
+            checkBoxFalse.Size = new Size(172, 24);
+            checkBoxFalse.TabIndex = 104;
+            checkBoxFalse.Text = "Признак отсутствует";
+            checkBoxFalse.UseVisualStyleBackColor = true;
+            checkBoxFalse.CheckedChanged += checkBoxFalse_CheckedChanged;
+            // 
+            // checkBoxTrue
+            // 
+            checkBoxTrue.AutoSize = true;
+            checkBoxTrue.Location = new Point(678, 274);
+            checkBoxTrue.Name = "checkBoxTrue";
+            checkBoxTrue.Size = new Size(184, 24);
+            checkBoxTrue.TabIndex = 103;
+            checkBoxTrue.Text = "Признак присутствует";
+            checkBoxTrue.UseVisualStyleBackColor = true;
+            checkBoxTrue.CheckedChanged += checkBoxTrue_CheckedChanged;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1220, 840);
+            ClientSize = new Size(1220, 891);
+            Controls.Add(checkBoxFalse);
+            Controls.Add(checkBoxTrue);
+            Controls.Add(label9);
             Controls.Add(labelSave);
             Controls.Add(textBoxTerms);
             Controls.Add(labelDatePicker);
@@ -444,6 +513,7 @@
             Controls.Add(label2);
             Controls.Add(buttonBackStage);
             Controls.Add(treeView1);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Margin = new Padding(3, 4, 3, 4);
             Name = "Form1";
             RightToLeft = RightToLeft.No;
@@ -476,5 +546,8 @@
         private TextBox textBoxTerms;
         private Label labelSave;
         private ToolTip toolTip1;
+        private Label label9;
+        private CheckBox checkBoxFalse;
+        private CheckBox checkBoxTrue;
     }
 }

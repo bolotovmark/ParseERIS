@@ -39,6 +39,7 @@
             TreeNode treeNode8 = new TreeNode("Номер свидетельства/извещения/выписки");
             TreeNode treeNode9 = new TreeNode("Номер наклейки");
             TreeNode treeNode10 = new TreeNode("Пригодность");
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormStartStage2));
             treeViewTermsURL = new TreeView();
             label8 = new Label();
             label7 = new Label();
@@ -57,7 +58,6 @@
             checkBoxOR = new CheckBox();
             buttonSave = new Button();
             labelSave = new Label();
-            checkBoxTerm = new CheckBox();
             dateTimePickerTerm = new DateTimePicker();
             labelDatePicker = new Label();
             label4 = new Label();
@@ -68,6 +68,8 @@
             label9 = new Label();
             toolTip1 = new ToolTip(components);
             toolTip2 = new ToolTip(components);
+            checkBoxTrue = new CheckBox();
+            checkBoxFalse = new CheckBox();
             SuspendLayout();
             // 
             // treeViewTermsURL
@@ -279,18 +281,6 @@
             labelSave.TabIndex = 91;
             labelSave.Text = "Новые изменения не сохранены";
             // 
-            // checkBoxTerm
-            // 
-            checkBoxTerm.AutoSize = true;
-            checkBoxTerm.Location = new Point(581, 210);
-            checkBoxTerm.Name = "checkBoxTerm";
-            checkBoxTerm.RightToLeft = RightToLeft.No;
-            checkBoxTerm.Size = new Size(238, 24);
-            checkBoxTerm.TabIndex = 92;
-            checkBoxTerm.Text = "Выбор логического значения";
-            checkBoxTerm.UseVisualStyleBackColor = true;
-            checkBoxTerm.CheckedChanged += checkBoxTerm_CheckedChanged;
-            // 
             // dateTimePickerTerm
             // 
             dateTimePickerTerm.CustomFormat = "dd-MM-yyyy";
@@ -382,11 +372,35 @@
             toolTip2.UseAnimation = false;
             toolTip2.UseFading = false;
             // 
+            // checkBoxTrue
+            // 
+            checkBoxTrue.AutoSize = true;
+            checkBoxTrue.Location = new Point(581, 212);
+            checkBoxTrue.Name = "checkBoxTrue";
+            checkBoxTrue.Size = new Size(101, 24);
+            checkBoxTrue.TabIndex = 101;
+            checkBoxTrue.Text = "Пригодно";
+            checkBoxTrue.UseVisualStyleBackColor = true;
+            checkBoxTrue.CheckedChanged += checkBoxTrue_CheckedChanged;
+            // 
+            // checkBoxFalse
+            // 
+            checkBoxFalse.AutoSize = true;
+            checkBoxFalse.Location = new Point(706, 212);
+            checkBoxFalse.Name = "checkBoxFalse";
+            checkBoxFalse.Size = new Size(118, 24);
+            checkBoxFalse.TabIndex = 102;
+            checkBoxFalse.Text = "Непригодно";
+            checkBoxFalse.UseVisualStyleBackColor = true;
+            checkBoxFalse.CheckedChanged += checkBoxFalse_CheckedChanged;
+            // 
             // FormStartStage2
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1082, 679);
+            Controls.Add(checkBoxFalse);
+            Controls.Add(checkBoxTrue);
             Controls.Add(label9);
             Controls.Add(labelCount);
             Controls.Add(progressBarCount);
@@ -395,7 +409,6 @@
             Controls.Add(label4);
             Controls.Add(labelDatePicker);
             Controls.Add(dateTimePickerTerm);
-            Controls.Add(checkBoxTerm);
             Controls.Add(labelSave);
             Controls.Add(buttonSave);
             Controls.Add(textBoxTerms);
@@ -414,8 +427,9 @@
             Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(treeViewTermsURL);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "FormStartStage2";
-            Text = "FormStartStage2";
+            Text = "Форма заполнения атрибутов поиска записей";
             ResumeLayout(false);
             PerformLayout();
         }
@@ -440,7 +454,6 @@
         private CheckBox checkBoxOR;
         private Button buttonSave;
         private Label labelSave;
-        private CheckBox checkBoxTerm;
         private DateTimePicker dateTimePickerTerm;
         private Label labelDatePicker;
         private Label label4;
@@ -451,5 +464,7 @@
         private Label label9;
         private ToolTip toolTip1;
         private ToolTip toolTip2;
+        private CheckBox checkBoxTrue;
+        private CheckBox checkBoxFalse;
     }
 }

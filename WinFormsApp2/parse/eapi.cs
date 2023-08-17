@@ -25,6 +25,7 @@ namespace WinFormsApp2.parse
         public event Action ProgressValue;
         public event Action IncrementingLabelFindCount;
         public event Action<int> GetCount;
+        public event Action<string> SetStatus;
 
         public URLAtributesGenerate urls { get; set; }
         public SearchTerms Keywords { get; set; }
@@ -92,20 +93,24 @@ namespace WinFormsApp2.parse
             {
                 try
                 {
+                    SetStatus?.Invoke("Подсчитывание общего кол-ва записей");
                     await CheckCount(token);
 
                     ProgressSet?.Invoke(Count);
+                    SetStatus?.Invoke("Создание книжки Excel");
                     xlApp = new ExcelClass();
 
                     if (xlApp == null)
                     {
                         MessageBox.Show("Excel is not properly installed!!");
+                        SetStatus?.Invoke("Ошибка");
                         return;
                     }
 
                     int i = 2;
                     var iter = 1;
 
+                    SetStatus?.Invoke("Создание HttpClient");
                     if (httpClient == null)
                     {
                         httpClient = new HttpClient();
@@ -117,7 +122,7 @@ namespace WinFormsApp2.parse
                     {
                         string url = "https://fgis.gost.ru/fundmetrology/eapi/vri"
                             + dateTerms + temp;
-
+                        SetStatus?.Invoke("Получение пулла карточек");
                         var client = new GetResponse(httpClient);
                         int endId = 0;
                         int startId = 0;
@@ -129,7 +134,7 @@ namespace WinFormsApp2.parse
                         }
 
                         url += "&rows=100&start=";
-
+                        SetStatus?.Invoke("Отбор");
                         while (startId < endId)
                         {
                             using (var jsonDoc = JsonDocument.Parse(await client.Request(url + startId.ToString(), token)))
@@ -181,10 +186,11 @@ namespace WinFormsApp2.parse
                         }
                     }
                     xlApp.Hide(!false);
+                    SetStatus?.Invoke("Сохранение книжки Excel");
                     xlApp.Save();
                 }
-                catch (TaskCanceledException) { }
-                catch (System.ArgumentNullException) {}
+                catch (TaskCanceledException) { SetStatus?.Invoke("Операция отменена"); }
+                catch (System.ArgumentNullException) { SetStatus?.Invoke("Ошибка"); }
             });
         }
 
@@ -202,6 +208,7 @@ namespace WinFormsApp2.parse
                         var check = await Loop(item.Value);
                         if (!check)
                         {
+
                             rowValues.Add(item.Name, item.Value.ToString());
                             //MessageBox.Show($"{item.Name}: {item.Value}");
                         }
@@ -255,11 +262,8 @@ namespace WinFormsApp2.parse
                     response.EnsureSuccessStatusCode();
                     stream = await response.Content.ReadAsStreamAsync();
                 }
-                catch (TaskCanceledException)
-                {
-
-                }
-
+                catch (TaskCanceledException){ }
+                catch (System.Net.Http.HttpRequestException) { }
                 return stream;
             }
         }

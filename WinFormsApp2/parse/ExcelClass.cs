@@ -10,7 +10,7 @@ namespace WinFormsApp2.parse
 {
     public class ExcelClass
     {
-        private static Excel.Application? xlApp;
+        public Excel.Application? xlApp;
         private static Excel._Worksheet? workSheet;
         private static Excel.Workbook? workbook;
         private object _missingObj = System.Reflection.Missing.Value;
@@ -31,17 +31,17 @@ namespace WinFormsApp2.parse
             {"validDate", "V" },
             {"vriType", "W" },
             {"docTitle", "X" },
-            {"certNum", "Y" },
-            {"noticeNum ", "Z" },
-            {"structure", "AA" },
-            {"briefIndicator", "AB" },
-            {"briefCharacteristics", "AC" },
-            {"ranges", "AD" },
-            {"values", "AE" },
-            {"channels", "AF" },
-            {"blocks", "AG" },
-            {"additional_info", "AH" },
-            {"status", "AI" }
+            {"certNum", "Z" },
+            {"noticeNum", "AA" },
+            {"structure", "AB" },
+            {"briefIndicator", "AC" },
+            {"briefCharacteristics", "AD" },
+            {"ranges", "AE" },
+            {"values", "AF" },
+            {"channels", "AG" },
+            {"blocks", "AH" },
+            {"additional_info", "AI" },
+            {"status", "AJ" }
         };
 
         private static Dictionary<string, string> dictCellsEtaMI = new Dictionary<string, string>()
@@ -62,17 +62,17 @@ namespace WinFormsApp2.parse
             {"validDate", "V" },
             {"vriType", "W" },
             {"docTitle", "X" },
-            {"certNum", "Y" },
-            {"noticeNum ", "Z" },
-            {"structure", "AA" },
-            {"briefIndicator", "AB" },
-            {"briefCharacteristics", "AC" },
-            {"ranges", "AD" },
-            {"values", "AE" },
-            {"channels", "AF" },
-            {"blocks", "AG" },
-            {"additional_info", "AH" },
-            {"status", "AI" }
+            {"certNum", "Z" },
+            {"noticeNum", "AA" },
+            {"structure", "AB" },
+            {"briefIndicator", "AC" },
+            {"briefCharacteristics", "AD" },
+            {"ranges", "AE" },
+            {"values", "AF" },
+            {"channels", "AG" },
+            {"blocks", "AH" },
+            {"additional_info", "AI" },
+            {"status", "AJ" }
         };
 
         public ExcelClass() {
@@ -108,16 +108,27 @@ namespace WinFormsApp2.parse
             SetBorder(workSheet.get_Range("I1", "R2"));
 
             //Сведения о поверке
-            SetStyleHeader("Сведения о поверке", "S1", "Z1");
-            SetBorder(workSheet.get_Range("S1", "Z2"));
+            SetStyleHeader("Сведения о поверке", "S1", "X1");
+            SetBorder(workSheet.get_Range("S1", "X2"));
+
+            //Сведения о пригодность
+            SetStyleHeader("Сведения о пригодности", "Y1", "AA1");
+            SetBorder(workSheet.get_Range("Y1", "AA2"));
 
             //Доп. сведения
-            SetStyleHeader("Дополнительные сведения", "AA1", "AH1");
-            SetBorder(workSheet.get_Range("AA1", "AH2"));
+            SetStyleHeader("Дополнительные сведения", "AB1", "AI1");
+            SetBorder(workSheet.get_Range("AB1", "AI2"));
 
             //Сведения о публикации
-            SetStyleHeader("Сведения о публикации", "AI1", "AI1");
-            SetBorder(workSheet.get_Range("AI1", "AI2"));
+            SetStyleHeader("Сведения о публикации", "AJ1", "AJ1");
+            SetBorder(workSheet.get_Range("AJ1", "AJ2"));
+
+            Excel.Range header_range;
+            header_range = workSheet.get_Range("A2", "AJ2");
+            header_range.RowHeight = 150;
+            header_range.WrapText = true;
+            header_range.VerticalAlignment = -4160;
+            header_range.HorizontalAlignment = -4108;
 
         }
 
@@ -164,21 +175,24 @@ namespace WinFormsApp2.parse
             workSheet.Cells[2, "V"] = "Поверка действительна до";//"validDate";
             workSheet.Cells[2, "W"] = "Тип поверки";//"vriType";
             workSheet.Cells[2, "X"] = "Наименование документа, на основании которого выполнена поверка";//"docTitle";
-            workSheet.Cells[2, "Y"] = "Номер свидетельства/выписки";//"certNum";
-            workSheet.Cells[2, "Z"] = "Номер извещения/выписки";//"noticeNum";
+
+            //Сведения о пригодности
+            workSheet.Cells[2, "Y"] = "Пригодность";
+            workSheet.Cells[2, "Z"] = "Номер свидетельства/выписки";//"certNum";
+            workSheet.Cells[2, "AA"] = "Номер извещения/выписки";//"noticeNum";
 
             //Доп. сведения
-            workSheet.Cells[2, "AA"] = "Состав СИ, представленного на поверку";//"structure";
-            workSheet.Cells[2, "AB"] = "Признак сокращенной поверки";//"briefIndicator";
-            workSheet.Cells[2, "AC"] = "Краткая характеристика объёма поверки";//"briefCharacteristics";
-            workSheet.Cells[2, "AD"] = "Диапазоны (поддиапазоны), на которых поверено СИ";//"ranges";
-            workSheet.Cells[2, "AE"] = "Отдельные величины, для которых поверено СИ";//"values";
-            workSheet.Cells[2, "AF"] = "Измерительные каналы СИ, прошедшие поверку";//"channels";
-            workSheet.Cells[2, "AG"] = "Отдельные автономные блоки из состава СИ, прошедшие поверку";//"blocks";
-            workSheet.Cells[2, "AH"] = "Прочие сведения";//"additional_info";
+            workSheet.Cells[2, "AB"] = "Состав СИ, представленного на поверку";//"structure";
+            workSheet.Cells[2, "AC"] = "Признак сокращенной поверки";//"briefIndicator";
+            workSheet.Cells[2, "AD"] = "Краткая характеристика объёма поверки";//"briefCharacteristics";
+            workSheet.Cells[2, "AE"] = "Диапазоны (поддиапазоны), на которых поверено СИ";//"ranges";
+            workSheet.Cells[2, "AF"] = "Отдельные величины, для которых поверено СИ";//"values";
+            workSheet.Cells[2, "AG"] = "Измерительные каналы СИ, прошедшие поверку";//"channels";
+            workSheet.Cells[2, "AH"] = "Отдельные автономные блоки из состава СИ, прошедшие поверку";//"blocks";
+            workSheet.Cells[2, "AI"] = "Прочие сведения";//"additional_info";
 
             //Сведения о публикации
-            workSheet.Cells[2, "AI"] = "Статус записи";//"status";
+            workSheet.Cells[2, "AJ"] = "Статус записи";//"status";
 
         }
 
@@ -188,9 +202,10 @@ namespace WinFormsApp2.parse
             SetBorder(workSheet.get_Range("A" + i.ToString(), "A" + i.ToString()));
             SetBorder(workSheet.get_Range("B" + i.ToString(), "H" + i.ToString()));
             SetBorder(workSheet.get_Range("I" + i.ToString(), "R" + i.ToString()));
-            SetBorder(workSheet.get_Range("S" + i.ToString(), "Z" + i.ToString()));
-            SetBorder(workSheet.get_Range("AA" + i.ToString(), "AH" + i.ToString()));
-            SetBorder(workSheet.get_Range("AI" + i.ToString(), "AI" + i.ToString()));
+            SetBorder(workSheet.get_Range("S" + i.ToString(), "X" + i.ToString()));
+            SetBorder(workSheet.get_Range("Y" + i.ToString(), "AA" + i.ToString()));
+            SetBorder(workSheet.get_Range("AB" + i.ToString(), "AI" + i.ToString()));
+            SetBorder(workSheet.get_Range("AJ" + i.ToString(), "AJ" + i.ToString()));
 
             workSheet.Cells[i, "A"] = vri_id;
 
@@ -224,6 +239,16 @@ namespace WinFormsApp2.parse
                         }
                     }
 
+                    if(item.Key == "certNum")
+                    {
+                        workSheet.Cells[i, "Y"] = "Пригодно";
+                    }
+
+                    if(item.Key == "noticeNum")
+                    {
+                        workSheet.Cells[i, "Y"] = "Непригодно";
+                    }
+
                     if (etaMI)
                     {
                         workSheet.Cells[i, dictCellsEtaMI[item.Key]] = tempItem;
@@ -254,7 +279,9 @@ namespace WinFormsApp2.parse
 
         public void Save()
         {
-            workbook.SaveAs(Path.Combine(Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath), $"{DateTime.Now.ToString("d-M-yyyy HH-mm-ss")}.xlsx"));
+            var path = Path.Combine(Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath), $"{DateTime.Now.ToString("d-M-yyyy HH-mm-ss")}.xlsx");
+            workbook.SaveAs(path);
+
         }
 
         public void Quit()

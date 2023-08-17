@@ -30,7 +30,7 @@ namespace WinFormsApp2
             toolTip1.SetToolTip(buttonCount, "Высчитать кол-во записей из которых будет производиться отбор");
             toolTip1.SetToolTip(checkBoxAnd, "Отбираются только те записи, где присутсвуют все указанные искомые слова");
             //toolTip1.SetToolTip(checkBoxOR, "Отбираются только те записи, где присутсувует хотя бы одно из указанных искомых слов");
-            toolTip1.SetToolTip(checkBoxTerm, "Форма для заполнения атрибута логического типа (Да/Нет)");
+            //toolTip1.SetToolTip(checkBoxTerm, "Форма для заполнения атрибута логического типа (Да/Нет)");
             toolTip1.SetToolTip(buttonSave, "Сохранить поисковые настройки атрибута");
             toolTip2.SetToolTip(checkBoxOR, "Отбираются только те записи, где присутсувует хотя бы одно из указанных искомых слов." +
                 "\nПри использовании данного парметра возможны повторения записей");
@@ -43,13 +43,14 @@ namespace WinFormsApp2
             checkBoxAnd.Checked = false;
             checkBoxOR.Checked = false;
 
-            labelDatePicker.Enabled = false;
-            dateTimePickerTerm.Enabled = false;
-            checkBoxTerm.Enabled = false;
-            checkBoxOR.Enabled = false;
-            checkBoxAnd.Enabled = false;
-            labelWords.Enabled = false;
-            textBoxTerms.Enabled = false;
+            labelDatePicker.Visible = false;
+            dateTimePickerTerm.Visible = false;
+            checkBoxTrue.Visible = false;
+            checkBoxFalse.Visible = false;
+            checkBoxOR.Visible = false;
+            checkBoxAnd.Visible = false;
+            labelWords.Visible = false;
+            textBoxTerms.Visible = false;
 
 
             labelSearchTerm.Text = infoTerm.title;
@@ -57,17 +58,18 @@ namespace WinFormsApp2
             if (infoTerm.tag == "boolean")
             {
                 labelTypeFormat.Text = "Логический (Да / Нет)";
-                checkBoxTerm.Enabled = true;
+                checkBoxTrue.Visible = true;
+                checkBoxFalse.Visible = true;
                 if (infoTerm.words.Count > 0)
                 {
-                    checkBoxTerm.Checked = bool.Parse(infoTerm.words[0]);
+                    checkBoxTrue.Checked = bool.Parse(infoTerm.words[0]);
                 }
             }
             if (infoTerm.tag == "date")
             {
                 labelTypeFormat.Text = "Дата";
-                labelDatePicker.Enabled = true;
-                dateTimePickerTerm.Enabled = true;
+                labelDatePicker.Visible = true;
+                dateTimePickerTerm.Visible = true;
                 if (infoTerm.words.Count > 0)
                 {
                     DateTime date = DateTime.ParseExact(infoTerm.words[0], "yyyy-MM-dd", CultureInfo.InvariantCulture);
@@ -77,10 +79,10 @@ namespace WinFormsApp2
             if (infoTerm.tag == "string")
             {
                 labelTypeFormat.Text = "Строка";
-                checkBoxOR.Enabled = true;
-                checkBoxAnd.Enabled = true;
-                labelWords.Enabled = true;
-                textBoxTerms.Enabled = true;
+                checkBoxOR.Visible = true;
+                checkBoxAnd.Visible = true;
+                labelWords.Visible = true;
+                textBoxTerms.Visible = true;
 
                 foreach (string line in infoTerm.words)
                 {
@@ -95,6 +97,8 @@ namespace WinFormsApp2
                 {
                     checkBoxOR.Checked = true;
                 }
+
+
             }
         }
 
@@ -136,7 +140,7 @@ namespace WinFormsApp2
             }
             if (tag == "boolean")
             {
-                newItem.words.Add(checkBoxTerm.Checked.ToString());
+                newItem.words.Add(checkBoxTrue.Checked.ToString());
                 newItem.formatQuery = true;
             }
 
@@ -290,6 +294,33 @@ namespace WinFormsApp2
             else
             {
                 checkBoxAnd.Checked = true;
+            }
+        }
+        private void checkBoxTrue_CheckedChanged(object sender, EventArgs e)
+        {
+            labelSave.Show();
+            System.Windows.Forms.CheckBox checkBox = (System.Windows.Forms.CheckBox)sender;
+            if (checkBox.Checked)
+            {
+                checkBoxFalse.Checked = false;
+            }
+            else
+            {
+                checkBoxFalse.Checked = true;
+            }
+        }
+
+        private void checkBoxFalse_CheckedChanged(object sender, EventArgs e)
+        {
+            labelSave.Show();
+            System.Windows.Forms.CheckBox checkBox = (System.Windows.Forms.CheckBox)sender;
+            if (checkBox.Checked)
+            {
+                checkBoxTrue.Checked = false;
+            }
+            else
+            {
+                checkBoxTrue.Checked = true;
             }
         }
 

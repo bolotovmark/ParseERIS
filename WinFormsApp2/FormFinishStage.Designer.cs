@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormFinishStage));
             buttonStart = new Button();
             buttonStop = new Button();
             progressBar1 = new ProgressBar();
@@ -39,11 +40,13 @@
             label3 = new Label();
             label4 = new Label();
             labelFindCount = new Label();
+            label5 = new Label();
+            labelStatus = new Label();
             SuspendLayout();
             // 
             // buttonStart
             // 
-            buttonStart.Location = new Point(115, 162);
+            buttonStart.Location = new Point(427, 196);
             buttonStart.Name = "buttonStart";
             buttonStart.Size = new Size(94, 29);
             buttonStart.TabIndex = 0;
@@ -53,7 +56,7 @@
             // 
             // buttonStop
             // 
-            buttonStop.Location = new Point(215, 162);
+            buttonStop.Location = new Point(115, 196);
             buttonStop.Name = "buttonStop";
             buttonStop.Size = new Size(106, 29);
             buttonStop.TabIndex = 1;
@@ -70,7 +73,7 @@
             // 
             // buttonQuit
             // 
-            buttonQuit.Location = new Point(474, 204);
+            buttonQuit.Location = new Point(227, 196);
             buttonQuit.Name = "buttonQuit";
             buttonQuit.Size = new Size(94, 29);
             buttonQuit.TabIndex = 3;
@@ -109,7 +112,7 @@
             // 
             // buttonBackStage
             // 
-            buttonBackStage.Location = new Point(12, 204);
+            buttonBackStage.Location = new Point(12, 238);
             buttonBackStage.Name = "buttonBackStage";
             buttonBackStage.Size = new Size(94, 29);
             buttonBackStage.TabIndex = 7;
@@ -120,7 +123,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(12, 166);
+            label3.Location = new Point(12, 200);
             label3.Name = "label3";
             label3.Size = new Size(97, 20);
             label3.TabIndex = 9;
@@ -145,11 +148,32 @@
             labelFindCount.TabIndex = 11;
             labelFindCount.Text = "labelCount";
             // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Location = new Point(12, 163);
+            label5.Name = "label5";
+            label5.Size = new Size(177, 20);
+            label5.TabIndex = 12;
+            label5.Text = "Статус работы парсера: ";
+            // 
+            // labelStatus
+            // 
+            labelStatus.AutoSize = true;
+            labelStatus.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            labelStatus.Location = new Point(195, 163);
+            labelStatus.Name = "labelStatus";
+            labelStatus.Size = new Size(86, 20);
+            labelStatus.TabIndex = 13;
+            labelStatus.Text = "labelStatus";
+            // 
             // FormFinishStage
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(580, 245);
+            ClientSize = new Size(633, 279);
+            Controls.Add(labelStatus);
+            Controls.Add(label5);
             Controls.Add(labelFindCount);
             Controls.Add(label4);
             Controls.Add(label3);
@@ -161,9 +185,11 @@
             Controls.Add(progressBar1);
             Controls.Add(buttonStop);
             Controls.Add(buttonStart);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "FormFinishStage";
             Text = "Управление работой парсера";
             FormClosing += FormFinishStage_FormClosing;
+            Load += FormFinishStage_Load;
             ResumeLayout(false);
             PerformLayout();
         }
@@ -181,5 +207,7 @@
         private Label label3;
         private Label label4;
         private Label labelFindCount;
+        private Label label5;
+        private Label labelStatus;
     }
 }
