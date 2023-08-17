@@ -43,7 +43,7 @@ namespace WinFormsApp2
 
         public Keyword GetFieldKeyword(ref ListBox listBoxTemp, ref CheckBox checkBox, string tag)
         {
-            Keyword keyword = new Keyword();
+            Keyword keyword = new Keyword("","","");
 
             foreach (string terms in listBoxTemp.Items)
             {

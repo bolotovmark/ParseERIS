@@ -76,7 +76,7 @@ namespace WinFormsApp2.parse
         };
 
         public ExcelClass() {
-            System.IO.File.Delete(Path.Combine(System.IO.Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath), "data.xlsx"));
+            //System.IO.File.Delete(Path.Combine(System.IO.Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath), "data.xlsx"));
 
             xlApp = new Excel.Application();
 
@@ -254,7 +254,7 @@ namespace WinFormsApp2.parse
 
         public void Save()
         {
-            workbook.SaveAs(Path.Combine(Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath), "data.xlsx"));
+            workbook.SaveAs(Path.Combine(Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath), $"{DateTime.Now.ToString("d-M-yyyy HH-mm-ss")}.xlsx"));
         }
 
         public void Quit()

@@ -25,8 +25,16 @@ namespace WinFormsApp2
             InitializeComponent();
             treeViewTermsURL.CheckBoxes = true;
             labelSave.Hide();
-            labelSearchTerm.AutoEllipsis = false;
-            labelSearchTerm.AutoSize = true;
+            labelCount.Text = string.Empty;
+
+            toolTip1.SetToolTip(buttonCount, "Высчитать кол-во записей из которых будет производиться отбор");
+            toolTip1.SetToolTip(checkBoxAnd, "Отбираются только те записи, где присутсвуют все указанные искомые слова");
+            //toolTip1.SetToolTip(checkBoxOR, "Отбираются только те записи, где присутсувует хотя бы одно из указанных искомых слов");
+            toolTip1.SetToolTip(checkBoxTerm, "Форма для заполнения атрибута логического типа (Да/Нет)");
+            toolTip1.SetToolTip(buttonSave, "Сохранить поисковые настройки атрибута");
+            toolTip2.SetToolTip(checkBoxOR, "Отбираются только те записи, где присутсувует хотя бы одно из указанных искомых слов." +
+                "\nПри использовании данного парметра возможны повторения записей");
+
         }
 
         private void ShowInfo(TermsUrl infoTerm)
@@ -229,6 +237,10 @@ namespace WinFormsApp2
 
             var atributesUrl = new URLAtributesGenerate(temp);
 
+            this.Hide();
+            new Form1(GetDateTerms(), atributesUrl).ShowDialog(this);
+            this.Show();
+
             //listBox1.Items.Clear();
             //foreach (var row in atributesUrl.listURLAtributes)
             //{
@@ -294,6 +306,65 @@ namespace WinFormsApp2
         private void dateTimePickerTerm_ValueChanged(object sender, EventArgs e)
         {
             labelSave.Show();
+        }
+
+        private async void buttonCount_Click(object sender, EventArgs e)
+        {
+
+            var temp = GetTerms();
+            if (temp == null)
+            {
+                MessageBox.Show("Отмеченный вами атрибут не заполнен. " +
+                    "Вернитесь на предыдущий шаг и проверьте корректность заполненных данных.", "Ошибка",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            var atributesUrl = new URLAtributesGenerate(temp);
+            Eapi = new eapi(GetDateTerms(), atributesUrl);
+
+            Eapi.ProgressSet += Eapi_ProgressBarCountMaximux;
+            Eapi.ProgressValue += Eapi_IncrementingValueProgress;
+            Eapi.GetCount += Eapi_GetCount;
+            await Eapi.CheckCount(new CancellationTokenSource());
+            progressBarCount.Value = 0;
+        }
+
+        private void Eapi_ProgressBarCountMaximux(int count)
+        {
+            if (progressBarCount.InvokeRequired)
+            {
+                progressBarCount.Invoke(new System.Action(() => progressBarCount.Maximum = count));
+            }
+            else
+            {
+                progressBarCount.Maximum = count;
+            }
+        }
+
+        private void Eapi_IncrementingValueProgress()
+        {
+            if (progressBarCount.InvokeRequired)
+            {
+                progressBarCount.Invoke(new System.Action(() =>
+                ++progressBarCount.Value));
+            }
+            else
+            {
+                ++progressBarCount.Value;
+            }
+        }
+
+        private void Eapi_GetCount(int count)
+        {
+            if (labelCount.InvokeRequired)
+            {
+                labelCount.Invoke(new System.Action(() => labelCount.Text = count.ToString()));
+            }
+            else
+            {
+                labelCount.Text = count.ToString();
+            }
         }
     }
 }

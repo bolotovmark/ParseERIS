@@ -56,7 +56,7 @@ namespace WinFormsApp2
             {
                 progressBarCount.Value = 75;
 
-                Eapi = new eapi(SumSearchTerms(), new SearchTerms(GetTypesSI()));
+                //Eapi = new eapi(SumSearchTerms(), new SearchTerms(GetTypesSI()));
                 await Eapi.CheckCount(new CancellationTokenSource());
 
                 labelCount.Text = Eapi.Count.ToString();
@@ -92,7 +92,7 @@ namespace WinFormsApp2
             if (GetTypesSI().Count > 0)
             {
                 this.Hide();
-                new Form1(GetTypesSI(), SumSearchTerms()).ShowDialog(this);
+                //new Form1(GetTypesSI(), SumSearchTerms()).ShowDialog(this);
                 this.Show();
             }
             else
