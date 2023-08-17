@@ -31,14 +31,14 @@ namespace WinFormsApp2
             this.urls = urls;
             //openFileDialog1.Filter = "Excel Files (*.xlsx)|*.xlsx";
             treeView1.CheckBoxes = true;
-            labelDatePicker.Enabled = false;
-            dateTimePickerTerm.Enabled = false;
-            checkBoxTerm.Enabled = false;
-            checkBoxOR.Enabled = false;
-            checkBoxAnd.Enabled = false;
-            labelWords.Enabled = false;
-            checkBoxMandatory.Enabled = false;
-            textBoxTerms.Enabled = false;
+            //labelDatePicker.Enabled = false;
+            //dateTimePickerTerm.Enabled = false;
+            //checkBoxTerm.Enabled = false;
+            //checkBoxOR.Enabled = false;
+            //checkBoxAnd.Enabled = false;
+            //labelWords.Enabled = false;
+            //checkBoxMandatory.Enabled = false;
+            //textBoxTerms.Enabled = false;
             labelSection.Text = string.Empty;
             labelSearchTerm.Text = string.Empty;
             labelTypeFormat.Text = string.Empty;
@@ -59,14 +59,16 @@ namespace WinFormsApp2
             checkBoxOR.Checked = false;
             checkBoxMandatory.Checked = false;
 
-            labelDatePicker.Enabled = false;
-            dateTimePickerTerm.Enabled = false;
-            checkBoxTerm.Enabled = false;
-            checkBoxOR.Enabled = false;
-            checkBoxAnd.Enabled = false;
-            labelWords.Enabled = false;
-            checkBoxMandatory.Enabled = false;
-            textBoxTerms.Enabled = false;
+            labelDatePicker.Visible = false;
+            dateTimePickerTerm.Visible = false;
+            checkBoxTerm.Visible = false;
+            checkBoxOR.Visible = false;
+            checkBoxAnd.Visible = false;
+            checkBoxTrue.Visible = false;
+            checkBoxFalse.Visible = false;
+            labelWords.Visible = false;
+            checkBoxMandatory.Visible = false;
+            textBoxTerms.Visible = false;
             labelSave.Hide();
 
 
@@ -78,17 +80,19 @@ namespace WinFormsApp2
             if (keyword.tag == "boolean")
             {
                 labelTypeFormat.Text = "Логический (Да / Нет)";
-                checkBoxTerm.Enabled = true;
+                //checkBoxTerm.Visible = true;
+                checkBoxTrue.Visible = true;
+                checkBoxFalse.Visible = true;
                 if (keyword.words.Count > 0)
                 {
-                    checkBoxTerm.Checked = bool.Parse(keyword.words[0]);
+                    checkBoxTrue.Checked = bool.Parse(keyword.words[0]);
                 }
             }
             if (keyword.tag == "date")
             {
                 labelTypeFormat.Text = "Дата";
-                labelDatePicker.Enabled = true;
-                dateTimePickerTerm.Enabled = true;
+                labelDatePicker.Visible = true;
+                dateTimePickerTerm.Visible = true;
                 if (keyword.words.Count > 0)
                 {
                     DateTime date = DateTime.ParseExact(keyword.words[0], "dd.MM.yyyy", CultureInfo.InvariantCulture);
@@ -98,11 +102,11 @@ namespace WinFormsApp2
             if (keyword.tag == "string")
             {
                 labelTypeFormat.Text = "Строка";
-                checkBoxOR.Enabled = true;
-                checkBoxAnd.Enabled = true;
-                labelWords.Enabled = true;
-                textBoxTerms.Enabled = true;
-                checkBoxMandatory.Enabled = true;
+                checkBoxOR.Visible = true;
+                checkBoxAnd.Visible = true;
+                labelWords.Visible = true;
+                textBoxTerms.Visible = true;
+                checkBoxMandatory.Visible = true;
 
                 foreach (string line in keyword.words)
                 {
@@ -181,7 +185,7 @@ namespace WinFormsApp2
             }
             if (tag == "boolean")
             {
-                newItem.words.Add(checkBoxTerm.Checked.ToString());
+                newItem.words.Add(checkBoxTrue.Checked.ToString());
                 newItem.formatQuery = true;
             }
 
@@ -327,6 +331,34 @@ namespace WinFormsApp2
             else
             {
                 checkBoxAnd.Checked = true;
+            }
+        }
+
+        private void checkBoxTrue_CheckedChanged(object sender, EventArgs e)
+        {
+            labelSave.Show();
+            System.Windows.Forms.CheckBox checkBox = (System.Windows.Forms.CheckBox)sender;
+            if (checkBox.Checked)
+            {
+                checkBoxFalse.Checked = false;
+            }
+            else
+            {
+                checkBoxFalse.Checked = true;
+            }
+        }
+
+        private void checkBoxFalse_CheckedChanged(object sender, EventArgs e)
+        {
+            labelSave.Show();
+            System.Windows.Forms.CheckBox checkBox = (System.Windows.Forms.CheckBox)sender;
+            if (checkBox.Checked)
+            {
+                checkBoxTrue.Checked = false;
+            }
+            else
+            {
+                checkBoxTrue.Checked = true;
             }
         }
 
