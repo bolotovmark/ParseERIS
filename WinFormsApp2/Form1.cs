@@ -136,6 +136,7 @@ namespace WinFormsApp2
 
         private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
         {
+
             if (e.Node.IsSelected && e.Node.Parent != null)
             {
                 var key = e.Node.Name;
