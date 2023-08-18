@@ -32,7 +32,7 @@ namespace WinFormsApp2.parse
             {
                 if (row.ContainsKey(dictKeyword.Key.key))
                 {
-                    
+                
                     var rowValue = row[dictKeyword.Key.key];
                     var keywordValue = dictKeyword.Value;
 
@@ -44,11 +44,11 @@ namespace WinFormsApp2.parse
                             {
                                 if (keywordValue.formatQuery)
                                 {
-                                    output = keywordValue.words.All(str => rowValue.ToLower().Contains(str));
+                                    output = keywordValue.words.All(str => rowValue.ToLower().Contains(str.ToLower()));
                                 }
                                 else
                                 {
-                                    output = keywordValue.words.Any(str => rowValue.ToLower().Contains(str));
+                                    output = keywordValue.words.Any(str => rowValue.ToLower().Contains(str.ToLower()));
                                 }
                             }
                         }
@@ -58,11 +58,11 @@ namespace WinFormsApp2.parse
                             {
                                 if (keywordValue.formatQuery)
                                 {
-                                    output = keywordValue.words.All(str => rowValue.ToLower().Contains(str));
+                                    output = keywordValue.words.All(str => rowValue.ToLower().Contains(str.ToLower()));
                                 }
                                 else
                                 {
-                                    output = keywordValue.words.Any(str => rowValue.ToLower().Contains(str));
+                                    output = keywordValue.words.Any(str => rowValue.ToLower().Contains(str.ToLower()));
                                 }
                             }
                         }
@@ -71,11 +71,11 @@ namespace WinFormsApp2.parse
                     {
                         if (keywordValue.formatQuery)
                         {
-                            output = keywordValue.words.All(str => rowValue.ToLower().Contains(str));
+                            output = keywordValue.words.All(str => rowValue.ToLower().Contains(str.ToLower()));
                         }
                         else
                         {
-                            output = keywordValue.words.Any(str => rowValue.ToLower().Contains(str));
+                            output = keywordValue.words.Any(str => rowValue.ToLower().Contains(str.ToLower()));
                         }
                     }
                 }
@@ -83,7 +83,7 @@ namespace WinFormsApp2.parse
                 {
                     if (dictKeyword.Value.mandatory)
                     {
-                        
+
                         return false;
                     }
                 }

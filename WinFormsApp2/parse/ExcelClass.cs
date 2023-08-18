@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.Office.Interop.Excel;
+using Microsoft.VisualBasic.Devices;
 using Excel = Microsoft.Office.Interop.Excel;
 
 namespace WinFormsApp2.parse
@@ -32,16 +34,23 @@ namespace WinFormsApp2.parse
             {"vriType", "W" },
             {"docTitle", "X" },
             {"certNum", "Z" },
-            {"noticeNum", "AA" },
-            {"structure", "AB" },
-            {"briefIndicator", "AC" },
-            {"briefCharacteristics", "AD" },
-            {"ranges", "AE" },
-            {"values", "AF" },
-            {"channels", "AG" },
-            {"blocks", "AH" },
-            {"additional_info", "AI" },
-            {"status", "AJ" }
+            {"noticeNum", "Z" },
+            {"npe", "AA"},
+            {"uve", "AB"},
+            {"ses", "AC"},
+            {"mieta", "AD"},
+            {"mis", "AE"},
+            {"reagent", "AF"},
+            {"oMethod", "AG"},
+            {"structure", "AH" },
+            {"briefIndicator", "AI" },
+            {"briefCharacteristics", "AJ" },
+            {"ranges", "AK" },
+            {"values", "AL" },
+            {"channels", "AM" },
+            {"blocks", "AN" },
+            {"additional_info", "AO" },
+            {"status", "AP" }
         };
 
         private static Dictionary<string, string> dictCellsEtaMI = new Dictionary<string, string>()
@@ -63,16 +72,23 @@ namespace WinFormsApp2.parse
             {"vriType", "W" },
             {"docTitle", "X" },
             {"certNum", "Z" },
-            {"noticeNum", "AA" },
-            {"structure", "AB" },
-            {"briefIndicator", "AC" },
-            {"briefCharacteristics", "AD" },
-            {"ranges", "AE" },
-            {"values", "AF" },
-            {"channels", "AG" },
-            {"blocks", "AH" },
-            {"additional_info", "AI" },
-            {"status", "AJ" }
+            {"noticeNum", "Z" },
+            {"npe", "AA"},
+            {"uve", "AB"},
+            {"ses", "AC"},
+            {"mieta", "AD"},
+            {"mis", "AE"},
+            {"reagent", "AF"},
+            {"oMethod", "AG"},
+            {"structure", "AH" },
+            {"briefIndicator", "AI" },
+            {"briefCharacteristics", "AJ" },
+            {"ranges", "AK" },
+            {"values", "AL" },
+            {"channels", "AM" },
+            {"blocks", "AN" },
+            {"additional_info", "AO" },
+            {"status", "AP" }
         };
 
         public ExcelClass() {
@@ -112,21 +128,26 @@ namespace WinFormsApp2.parse
             SetBorder(workSheet.get_Range("S1", "X2"));
 
             //Сведения о пригодность
-            SetStyleHeader("Сведения о пригодности", "Y1", "AA1");
-            SetBorder(workSheet.get_Range("Y1", "AA2"));
+            SetStyleHeader("Сведения о пригодности", "Y1", "Z1");
+            SetBorder(workSheet.get_Range("Y1", "Z2"));
+
+            //Средства поверки
+            SetStyleHeader("Средства поверки", "AA1", "AG1");
+            SetBorder(workSheet.get_Range("AA1", "AG2"));
 
             //Доп. сведения
-            SetStyleHeader("Дополнительные сведения", "AB1", "AI1");
-            SetBorder(workSheet.get_Range("AB1", "AI2"));
+            SetStyleHeader("Дополнительные сведения", "AH1", "AO1");
+            SetBorder(workSheet.get_Range("AH1", "AO2"));
 
             //Сведения о публикации
-            SetStyleHeader("Сведения о публикации", "AJ1", "AJ1");
-            SetBorder(workSheet.get_Range("AJ1", "AJ2"));
+            SetStyleHeader("Сведения о публикации", "AP1", "AP1");
+            SetBorder(workSheet.get_Range("AP1", "AP2"));
 
             Excel.Range header_range;
-            header_range = workSheet.get_Range("A2", "AJ2");
+            header_range = workSheet.get_Range("A2", "AP2");
             header_range.RowHeight = 150;
             header_range.WrapText = true;
+
             header_range.VerticalAlignment = -4160;
             header_range.HorizontalAlignment = -4108;
 
@@ -178,21 +199,31 @@ namespace WinFormsApp2.parse
 
             //Сведения о пригодности
             workSheet.Cells[2, "Y"] = "Пригодность";
-            workSheet.Cells[2, "Z"] = "Номер свидетельства/выписки";//"certNum";
-            workSheet.Cells[2, "AA"] = "Номер извещения/выписки";//"noticeNum";
+            workSheet.Cells[2, "Z"] = "Номер свидетельства/извещения";//"certNum"; "noticeNum";
+            //workSheet.Cells[2, "AA"] = "Номер извещения/выписки";//
+
+            //Средства поверки
+
+            workSheet.Cells[2, "AA"] = "Государственные первичные эталоны";//"npe";
+            workSheet.Cells[2, "AB"] = "Эталоны единицы величины";//"uve";
+            workSheet.Cells[2, "AC"] = "Стандартные образцы";//"ses";
+            workSheet.Cells[2, "AD"] = "Средство измерения, применяемое в качестве эталона";//"mieta";
+            workSheet.Cells[2, "AE"] = "Средства измерения, применяемые при поверке";//"mis";
+            workSheet.Cells[2, "AF"] = "Вещество (материал), применяемое при поверке";//"reagent";
+            workSheet.Cells[2, "AG"] = "Доп. методы, использованные при поверке";//"oMethod";
 
             //Доп. сведения
-            workSheet.Cells[2, "AB"] = "Состав СИ, представленного на поверку";//"structure";
-            workSheet.Cells[2, "AC"] = "Признак сокращенной поверки";//"briefIndicator";
-            workSheet.Cells[2, "AD"] = "Краткая характеристика объёма поверки";//"briefCharacteristics";
-            workSheet.Cells[2, "AE"] = "Диапазоны (поддиапазоны), на которых поверено СИ";//"ranges";
-            workSheet.Cells[2, "AF"] = "Отдельные величины, для которых поверено СИ";//"values";
-            workSheet.Cells[2, "AG"] = "Измерительные каналы СИ, прошедшие поверку";//"channels";
-            workSheet.Cells[2, "AH"] = "Отдельные автономные блоки из состава СИ, прошедшие поверку";//"blocks";
-            workSheet.Cells[2, "AI"] = "Прочие сведения";//"additional_info";
+            workSheet.Cells[2, "AH"] = "Состав СИ, представленного на поверку";//"structure";
+            workSheet.Cells[2, "AI"] = "Признак сокращенной поверки";//"briefIndicator";
+            workSheet.Cells[2, "AJ"] = "Краткая характеристика объёма поверки";//"briefCharacteristics";
+            workSheet.Cells[2, "AK"] = "Диапазоны (поддиапазоны), на которых поверено СИ";//"ranges";
+            workSheet.Cells[2, "AL"] = "Отдельные величины, для которых поверено СИ";//"values";
+            workSheet.Cells[2, "AM"] = "Измерительные каналы СИ, прошедшие поверку";//"channels";
+            workSheet.Cells[2, "AN"] = "Отдельные автономные блоки из состава СИ, прошедшие поверку";//"blocks";
+            workSheet.Cells[2, "AO"] = "Прочие сведения";//"additional_info";
 
             //Сведения о публикации
-            workSheet.Cells[2, "AJ"] = "Статус записи";//"status";
+            workSheet.Cells[2, "AP"] = "Статус записи";//"status";
 
         }
 
@@ -203,9 +234,10 @@ namespace WinFormsApp2.parse
             SetBorder(workSheet.get_Range("B" + i.ToString(), "H" + i.ToString()));
             SetBorder(workSheet.get_Range("I" + i.ToString(), "R" + i.ToString()));
             SetBorder(workSheet.get_Range("S" + i.ToString(), "X" + i.ToString()));
-            SetBorder(workSheet.get_Range("Y" + i.ToString(), "AA" + i.ToString()));
-            SetBorder(workSheet.get_Range("AB" + i.ToString(), "AI" + i.ToString()));
-            SetBorder(workSheet.get_Range("AJ" + i.ToString(), "AJ" + i.ToString()));
+            SetBorder(workSheet.get_Range("Y" + i.ToString(), "Z" + i.ToString()));
+            SetBorder(workSheet.get_Range("AA" + i.ToString(), "AG" + i.ToString()));
+            SetBorder(workSheet.get_Range("AH" + i.ToString(), "AO" + i.ToString()));
+            SetBorder(workSheet.get_Range("AP" + i.ToString(), "AP" + i.ToString()));
 
             workSheet.Cells[i, "A"] = vri_id;
 
@@ -258,6 +290,7 @@ namespace WinFormsApp2.parse
                         workSheet.Cells[i, dictCellsSingleMI[item.Key]] = tempItem;
                     }
                 }   
+                
             }
         }
 
