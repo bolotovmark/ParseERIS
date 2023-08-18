@@ -205,13 +205,39 @@ namespace WinFormsApp2.parse
                         {
                             etaMI = true;
                         }
+
+                        if (item.Value.ToString()[0] == '[')
+                        {
+                            using var doc = JsonDocument.Parse(item.Value.ToString());
+                            JsonElement roott = doc.RootElement;
+
+                            var users = roott.EnumerateArray();
+                            string outputText = "";
+                            while (users.MoveNext())
+                            {
+                                var user = users.Current;
+                                System.Console.WriteLine(user);
+
+                                var props = user.EnumerateObject();
+                               
+                                
+                                outputText += (string.Join(", ", props.Select(x => x.Value).Where(value => !value.ToString().Contains("http"))));
+
+                                outputText += "; ";
+
+                            }
+                            //MessageBox.Show(outputText);
+                            rowValues.Add(item.Name, outputText);
+                        }
+
                         var check = await Loop(item.Value);
-                        if (!check)
+                        if (!check && item.Value.ToString()[0] != '[')
                         {
 
                             rowValues.Add(item.Name, item.Value.ToString());
                             //MessageBox.Show($"{item.Name}: {item.Value}");
                         }
+
                     }
                     return true;
                 }

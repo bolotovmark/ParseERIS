@@ -66,13 +66,13 @@
             TreeNode treeNode35 = new TreeNode("Отдельные автономные блоки из состава СИ, прошедшие поверку");
             TreeNode treeNode36 = new TreeNode("Прочие сведения");
             TreeNode treeNode37 = new TreeNode("Дополнительные сведения", new TreeNode[] { treeNode29, treeNode30, treeNode31, treeNode32, treeNode33, treeNode34, treeNode35, treeNode36 });
-            TreeNode treeNode38 = new TreeNode("Государственные первичне эталоны");
-            TreeNode treeNode39 = new TreeNode("Узел2");
-            TreeNode treeNode40 = new TreeNode("Узел3");
-            TreeNode treeNode41 = new TreeNode("Узел4");
-            TreeNode treeNode42 = new TreeNode("Узел5");
-            TreeNode treeNode43 = new TreeNode("Узел6");
-            TreeNode treeNode44 = new TreeNode("Узел7");
+            TreeNode treeNode38 = new TreeNode("Государственные первичные эталоны");
+            TreeNode treeNode39 = new TreeNode("Эталоны единицы величины");
+            TreeNode treeNode40 = new TreeNode("Стандартные образцы");
+            TreeNode treeNode41 = new TreeNode("Средство измерения, применяемое в качестве эталона");
+            TreeNode treeNode42 = new TreeNode("Средства измерения, применяемые при поверке");
+            TreeNode treeNode43 = new TreeNode("Вещество (материал), применяемое при поверке");
+            TreeNode treeNode44 = new TreeNode("Доп. методы, использованные при поверке");
             TreeNode treeNode45 = new TreeNode("Средства поверки", new TreeNode[] { treeNode38, treeNode39, treeNode40, treeNode41, treeNode42, treeNode43, treeNode44 });
             TreeNode treeNode46 = new TreeNode("Статус записи");
             TreeNode treeNode47 = new TreeNode("Сведения о публикации", new TreeNode[] { treeNode46 });
@@ -110,7 +110,8 @@
             // 
             // treeView1
             // 
-            treeView1.Location = new Point(12, 58);
+            treeView1.Location = new Point(10, 44);
+            treeView1.Margin = new Padding(3, 2, 3, 2);
             treeView1.Name = "treeView1";
             treeNode1.Name = "mitypeNumber";
             treeNode1.Tag = "string";
@@ -220,27 +221,27 @@
             treeNode36.Text = "Прочие сведения";
             treeNode37.Name = "info";
             treeNode37.Text = "Дополнительные сведения";
-            treeNode38.Name = "Узел1";
+            treeNode38.Name = "npe";
             treeNode38.Tag = "string";
-            treeNode38.Text = "Государственные первичне эталоны";
-            treeNode39.Name = "Узел2";
+            treeNode38.Text = "Государственные первичные эталоны";
+            treeNode39.Name = "uve";
             treeNode39.Tag = "string";
-            treeNode39.Text = "Узел2";
-            treeNode40.Name = "Узел3";
+            treeNode39.Text = "Эталоны единицы величины";
+            treeNode40.Name = "ses";
             treeNode40.Tag = "string";
-            treeNode40.Text = "Узел3";
-            treeNode41.Name = "Узел4";
+            treeNode40.Text = "Стандартные образцы";
+            treeNode41.Name = "mieta";
             treeNode41.Tag = "string";
-            treeNode41.Text = "Узел4";
-            treeNode42.Name = "Узел5";
+            treeNode41.Text = "Средство измерения, применяемое в качестве эталона";
+            treeNode42.Name = "mis";
             treeNode42.Tag = "string";
-            treeNode42.Text = "Узел5";
-            treeNode43.Name = "Узел6";
+            treeNode42.Text = "Средства измерения, применяемые при поверке";
+            treeNode43.Name = "reagent";
             treeNode43.Tag = "string";
-            treeNode43.Text = "Узел6";
-            treeNode44.Name = "Узел7";
+            treeNode43.Text = "Вещество (материал), применяемое при поверке";
+            treeNode44.Name = "oMethod";
             treeNode44.Tag = "string";
-            treeNode44.Text = "Узел7";
+            treeNode44.Text = "Доп. методы, использованные при поверке";
             treeNode45.Name = "means";
             treeNode45.Text = "Средства поверки";
             treeNode46.Name = "status";
@@ -249,16 +250,17 @@
             treeNode47.Name = "publication";
             treeNode47.Text = "Сведения о публикации";
             treeView1.Nodes.AddRange(new TreeNode[] { treeNode8, treeNode19, treeNode28, treeNode37, treeNode45, treeNode47 });
-            treeView1.Size = new Size(617, 726);
+            treeView1.Size = new Size(540, 546);
             treeView1.TabIndex = 54;
             treeView1.AfterCheck += treeView1_AfterCheck;
             treeView1.AfterSelect += treeView1_AfterSelect;
             // 
             // buttonBackStage
             // 
-            buttonBackStage.Location = new Point(12, 819);
+            buttonBackStage.Location = new Point(10, 614);
+            buttonBackStage.Margin = new Padding(3, 2, 3, 2);
             buttonBackStage.Name = "buttonBackStage";
-            buttonBackStage.Size = new Size(94, 29);
+            buttonBackStage.Size = new Size(82, 22);
             buttonBackStage.TabIndex = 56;
             buttonBackStage.Text = "Назад";
             buttonBackStage.UseVisualStyleBackColor = true;
@@ -268,17 +270,18 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
-            label2.Location = new Point(12, 9);
+            label2.Location = new Point(10, 7);
             label2.Name = "label2";
-            label2.Size = new Size(561, 35);
+            label2.Size = new Size(446, 28);
             label2.TabIndex = 57;
             label2.Text = "Этап 2: Выберите атрибуты для отбора записей";
             // 
             // buttonNextStage
             // 
-            buttonNextStage.Location = new Point(1076, 819);
+            buttonNextStage.Location = new Point(942, 614);
+            buttonNextStage.Margin = new Padding(3, 2, 3, 2);
             buttonNextStage.Name = "buttonNextStage";
-            buttonNextStage.Size = new Size(132, 29);
+            buttonNextStage.Size = new Size(116, 22);
             buttonNextStage.TabIndex = 58;
             buttonNextStage.Text = "Запустить поиск";
             buttonNextStage.UseVisualStyleBackColor = true;
@@ -288,18 +291,18 @@
             // 
             labelTypeFormat.AutoSize = true;
             labelTypeFormat.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            labelTypeFormat.Location = new Point(673, 187);
+            labelTypeFormat.Location = new Point(589, 140);
             labelTypeFormat.Name = "labelTypeFormat";
-            labelTypeFormat.Size = new Size(126, 20);
+            labelTypeFormat.Size = new Size(99, 15);
             labelTypeFormat.TabIndex = 75;
             labelTypeFormat.Text = "labelTypeFormat";
             // 
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new Point(672, 167);
+            label8.Location = new Point(588, 125);
             label8.Name = "label8";
-            label8.Size = new Size(119, 20);
+            label8.Size = new Size(94, 15);
             label8.TabIndex = 74;
             label8.Text = "Формат записи:";
             // 
@@ -307,26 +310,27 @@
             // 
             labelSection.AutoSize = true;
             labelSection.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            labelSection.Location = new Point(672, 78);
+            labelSection.Location = new Point(588, 58);
             labelSection.Name = "labelSection";
-            labelSection.Size = new Size(93, 20);
+            labelSection.Size = new Size(75, 15);
             labelSection.TabIndex = 72;
             labelSection.Text = "labelSection";
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(672, 58);
+            label4.Location = new Point(588, 44);
             label4.Name = "label4";
-            label4.Size = new Size(125, 20);
+            label4.Size = new Size(99, 15);
             label4.TabIndex = 71;
             label4.Text = "Раздел атрибута:";
             // 
             // buttonSave
             // 
-            buttonSave.Location = new Point(1091, 755);
+            buttonSave.Location = new Point(955, 566);
+            buttonSave.Margin = new Padding(3, 2, 3, 2);
             buttonSave.Name = "buttonSave";
-            buttonSave.Size = new Size(108, 29);
+            buttonSave.Size = new Size(94, 22);
             buttonSave.TabIndex = 70;
             buttonSave.Text = "Сохранить";
             buttonSave.UseVisualStyleBackColor = true;
@@ -335,27 +339,28 @@
             // labelWords
             // 
             labelWords.AutoSize = true;
-            labelWords.Location = new Point(672, 394);
+            labelWords.Location = new Point(588, 296);
             labelWords.Name = "labelWords";
-            labelWords.Size = new Size(120, 20);
+            labelWords.Size = new Size(97, 15);
             labelWords.TabIndex = 69;
             labelWords.Text = "Искомые слова:";
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(673, 112);
+            label3.Location = new Point(589, 84);
             label3.Name = "label3";
-            label3.Size = new Size(168, 20);
+            label3.Size = new Size(134, 15);
             label3.TabIndex = 68;
             label3.Text = "Заполняемый атрибут:";
             // 
             // checkBoxMandatory
             // 
             checkBoxMandatory.AutoSize = true;
-            checkBoxMandatory.Location = new Point(678, 314);
+            checkBoxMandatory.Location = new Point(593, 236);
+            checkBoxMandatory.Margin = new Padding(3, 2, 3, 2);
             checkBoxMandatory.Name = "checkBoxMandatory";
-            checkBoxMandatory.Size = new Size(185, 24);
+            checkBoxMandatory.Size = new Size(147, 19);
             checkBoxMandatory.TabIndex = 67;
             checkBoxMandatory.Text = "Наличие обязательно";
             checkBoxMandatory.UseVisualStyleBackColor = true;
@@ -366,18 +371,18 @@
             labelSearchTerm.AutoEllipsis = true;
             labelSearchTerm.AutoSize = true;
             labelSearchTerm.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            labelSearchTerm.Location = new Point(673, 132);
+            labelSearchTerm.Location = new Point(589, 99);
             labelSearchTerm.Name = "labelSearchTerm";
-            labelSearchTerm.Size = new Size(124, 20);
+            labelSearchTerm.Size = new Size(100, 15);
             labelSearchTerm.TabIndex = 66;
             labelSearchTerm.Text = "labelSearchTerm";
             // 
             // labelDatePicker
             // 
             labelDatePicker.AutoSize = true;
-            labelDatePicker.Location = new Point(673, 230);
+            labelDatePicker.Location = new Point(589, 172);
             labelDatePicker.Name = "labelDatePicker";
-            labelDatePicker.Size = new Size(96, 20);
+            labelDatePicker.Size = new Size(76, 15);
             labelDatePicker.TabIndex = 99;
             labelDatePicker.Text = "Выбор даты:";
             // 
@@ -385,19 +390,21 @@
             // 
             dateTimePickerTerm.CustomFormat = "dd-MM-yyyy";
             dateTimePickerTerm.Format = DateTimePickerFormat.Custom;
-            dateTimePickerTerm.Location = new Point(788, 225);
+            dateTimePickerTerm.Location = new Point(690, 169);
+            dateTimePickerTerm.Margin = new Padding(3, 2, 3, 2);
             dateTimePickerTerm.Name = "dateTimePickerTerm";
-            dateTimePickerTerm.Size = new Size(161, 27);
+            dateTimePickerTerm.Size = new Size(141, 23);
             dateTimePickerTerm.TabIndex = 98;
             dateTimePickerTerm.ValueChanged += dateTimePickerTerm_ValueChanged;
             // 
             // checkBoxTerm
             // 
             checkBoxTerm.AutoSize = true;
-            checkBoxTerm.Location = new Point(932, 132);
+            checkBoxTerm.Location = new Point(816, 99);
+            checkBoxTerm.Margin = new Padding(3, 2, 3, 2);
             checkBoxTerm.Name = "checkBoxTerm";
             checkBoxTerm.RightToLeft = RightToLeft.No;
-            checkBoxTerm.Size = new Size(238, 24);
+            checkBoxTerm.Size = new Size(190, 19);
             checkBoxTerm.TabIndex = 97;
             checkBoxTerm.Text = "Выбор логического значения";
             checkBoxTerm.UseVisualStyleBackColor = true;
@@ -406,9 +413,10 @@
             // checkBoxOR
             // 
             checkBoxOR.AutoSize = true;
-            checkBoxOR.Location = new Point(870, 354);
+            checkBoxOR.Location = new Point(761, 266);
+            checkBoxOR.Margin = new Padding(3, 2, 3, 2);
             checkBoxOR.Name = "checkBoxOR";
-            checkBoxOR.Size = new Size(193, 24);
+            checkBoxOR.Size = new Size(154, 19);
             checkBoxOR.TabIndex = 96;
             checkBoxOR.Text = "Поиск в значении ИЛИ";
             checkBoxOR.UseVisualStyleBackColor = true;
@@ -417,9 +425,10 @@
             // checkBoxAnd
             // 
             checkBoxAnd.AutoSize = true;
-            checkBoxAnd.Location = new Point(678, 354);
+            checkBoxAnd.Location = new Point(593, 266);
+            checkBoxAnd.Margin = new Padding(3, 2, 3, 2);
             checkBoxAnd.Name = "checkBoxAnd";
-            checkBoxAnd.Size = new Size(172, 24);
+            checkBoxAnd.Size = new Size(137, 19);
             checkBoxAnd.TabIndex = 95;
             checkBoxAnd.Text = "Поиск в значении И";
             checkBoxAnd.UseVisualStyleBackColor = true;
@@ -427,11 +436,12 @@
             // 
             // textBoxTerms
             // 
-            textBoxTerms.Location = new Point(673, 417);
+            textBoxTerms.Location = new Point(589, 313);
+            textBoxTerms.Margin = new Padding(3, 2, 3, 2);
             textBoxTerms.Multiline = true;
             textBoxTerms.Name = "textBoxTerms";
             textBoxTerms.ScrollBars = ScrollBars.Vertical;
-            textBoxTerms.Size = new Size(526, 332);
+            textBoxTerms.Size = new Size(461, 250);
             textBoxTerms.TabIndex = 100;
             textBoxTerms.TextChanged += textBoxTerms_TextChanged;
             // 
@@ -440,9 +450,9 @@
             labelSave.AutoSize = true;
             labelSave.BackColor = Color.IndianRed;
             labelSave.ForeColor = SystemColors.ControlText;
-            labelSave.Location = new Point(845, 759);
+            labelSave.Location = new Point(739, 569);
             labelSave.Name = "labelSave";
-            labelSave.Size = new Size(240, 20);
+            labelSave.Size = new Size(187, 15);
             labelSave.TabIndex = 101;
             labelSave.Text = "Новые изменения не сохранены";
             // 
@@ -456,9 +466,9 @@
             // label9
             // 
             label9.AutoSize = true;
-            label9.Location = new Point(12, 862);
+            label9.Location = new Point(10, 646);
             label9.Name = "label9";
-            label9.Size = new Size(491, 20);
+            label9.Size = new Size(382, 15);
             label9.TabIndex = 102;
             label9.Text = "ℹ️ Для получение подсказки наведитесь на интерактивный элемент\r\n";
             label9.TextAlign = ContentAlignment.MiddleCenter;
@@ -466,9 +476,10 @@
             // checkBoxFalse
             // 
             checkBoxFalse.AutoSize = true;
-            checkBoxFalse.Location = new Point(870, 274);
+            checkBoxFalse.Location = new Point(761, 206);
+            checkBoxFalse.Margin = new Padding(3, 2, 3, 2);
             checkBoxFalse.Name = "checkBoxFalse";
-            checkBoxFalse.Size = new Size(172, 24);
+            checkBoxFalse.Size = new Size(139, 19);
             checkBoxFalse.TabIndex = 104;
             checkBoxFalse.Text = "Признак отсутствует";
             checkBoxFalse.UseVisualStyleBackColor = true;
@@ -477,9 +488,10 @@
             // checkBoxTrue
             // 
             checkBoxTrue.AutoSize = true;
-            checkBoxTrue.Location = new Point(678, 274);
+            checkBoxTrue.Location = new Point(593, 206);
+            checkBoxTrue.Margin = new Padding(3, 2, 3, 2);
             checkBoxTrue.Name = "checkBoxTrue";
-            checkBoxTrue.Size = new Size(184, 24);
+            checkBoxTrue.Size = new Size(148, 19);
             checkBoxTrue.TabIndex = 103;
             checkBoxTrue.Text = "Признак присутствует";
             checkBoxTrue.UseVisualStyleBackColor = true;
@@ -487,9 +499,9 @@
             // 
             // Form1
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1220, 891);
+            ClientSize = new Size(1068, 668);
             Controls.Add(checkBoxFalse);
             Controls.Add(checkBoxTrue);
             Controls.Add(label9);
@@ -514,7 +526,6 @@
             Controls.Add(buttonBackStage);
             Controls.Add(treeView1);
             Icon = (Icon)resources.GetObject("$this.Icon");
-            Margin = new Padding(3, 4, 3, 4);
             Name = "Form1";
             RightToLeft = RightToLeft.No;
             StartPosition = FormStartPosition.CenterParent;
