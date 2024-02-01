@@ -54,6 +54,11 @@ namespace WinFormsApp2.parse
             this.urls = urls;
         }
 
+        public void GetResponseSetStatus(string status)
+        {
+            SetStatus?.Invoke(status);
+        }
+
         public async Task CheckCount(CancellationTokenSource token)
         {
             await Task.Run(async() => {
@@ -102,7 +107,7 @@ namespace WinFormsApp2.parse
 
                     if (xlApp == null)
                     {
-                        MessageBox.Show("Excel is not properly installed!!");
+                        MessageBox.Show("Excel не обнаружен!");
                         SetStatus?.Invoke("Ошибка");
                         return;
                     }
@@ -124,6 +129,7 @@ namespace WinFormsApp2.parse
                             + dateTerms + temp;
                         SetStatus?.Invoke("Получение пулла карточек");
                         var client = new GetResponse(httpClient);
+                        client.SetStatus += GetResponseSetStatus;
                         int endId = 0;
                         int startId = 0;
 
@@ -257,6 +263,7 @@ namespace WinFormsApp2.parse
         class GetResponse
         {
             private HttpClient httpClient;
+            public event Action<string> SetStatus;
 
             public GetResponse(HttpClient httpClient)
             {
@@ -269,22 +276,35 @@ namespace WinFormsApp2.parse
                 try
                 {
                     HttpResponseMessage response;
+                    int countErrorResponse = 0;
                     do
                     {
                         System.Threading.Thread.Sleep(500);
                         response = await httpClient.GetAsync(url, token.Token);
-                       
+
+                        
                         if (!response.IsSuccessStatusCode)
                         {
-                            MessageBox.Show("С вашего IP было больше двух запросов в секунду", "Предупреждение",
-                                MessageBoxButtons.OK, MessageBoxIcon.Warning,
-                                MessageBoxDefaultButton.Button1, MessageBoxOptions.ServiceNotification);
-                            MessageBox.Show(url);
+                            SetStatus?.Invoke("Неудачный запрос. Повторение №" + countErrorResponse + " Код ошибки: " + response.StatusCode.ToString());
+                            ++countErrorResponse;
+                            if (countErrorResponse > 50)
+                            {
+                                System.Threading.Thread.Sleep(2000);
+                            }
+                                    
+                            //MessageBox.Show(response.StatusCode.ToString());
+                            //MessageBox.Show("С вашего IP было больше двух запросов в секунду", "Предупреждение",
+                            //    MessageBoxButtons.OK, MessageBoxIcon.Warning,
+                            //    MessageBoxDefaultButton.Button1, MessageBoxOptions.ServiceNotification);
+                            //MessageBox.Show(url);
 
                         }
+                        
                     }
                     while (!response.IsSuccessStatusCode);
 
+                    SetStatus?.Invoke("Отбор");
+                
                     response.EnsureSuccessStatusCode();
                     stream = await response.Content.ReadAsStreamAsync();
                 }
