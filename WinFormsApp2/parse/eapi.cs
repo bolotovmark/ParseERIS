@@ -87,7 +87,7 @@ namespace WinFormsApp2.parse
 
                 }
                 catch(TaskCanceledException) { }
-                
+
             });
             
         }
@@ -268,6 +268,7 @@ namespace WinFormsApp2.parse
             public GetResponse(HttpClient httpClient)
             {
                 this.httpClient = httpClient;
+                this.httpClient.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0");
             }
 
             public async Task<Stream> Request(string url, CancellationTokenSource token)
